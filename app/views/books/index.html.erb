@@ -7,7 +7,7 @@
         <%= render 'users/userinfo', user: @user %>
         
 <!-- 新規投稿 -->
-        <%= render 'books/post', book: @book %>
+        <%= render 'books/post', book: Book.new %>
         </div>
       
 <!-- ユーザーの投稿一覧 -->
@@ -36,6 +36,13 @@
                 <% end %>
               </td>
               <td><%= book.body %></td>
+              <td>
+             <!-- ファボ機能 -->
+        <%= render 'favorites/fav', book: book %>
+             </td> 
+             <td>
+            <p><%=  "コメント数：#{book.book_comments.count} " %></p>
+             </td>
               </tr>
               <% end %>
           </tbody>
