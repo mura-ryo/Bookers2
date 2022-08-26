@@ -1,8 +1,7 @@
 <!-- ユーザーの詳細 -->
         <h2>User info</h2>
-        <div>
-          <%= image_tag user.get_profile_image(100,100) %>
           <table class="table">
+            <tr><%= image_tag user.get_profile_image(100,100) %></tr>
             <tbody>
               <tr>
                 <th>name</th>
@@ -13,8 +12,32 @@
                 <th><%= user.introduction %></th>
               </tr>
             </tbody>
+            <tr>
+              <th>follows</th>
+              <th><%= link_to followings_path(user.id) do %>
+              <%= user.followings.count %>
+              <% end %>
+              </th>
+            </tr>
+            <tr>
+              <th>followers</th>
+              <th><%= link_to followers_path(user.id) do %>
+              <%= user.followers.count %>
+              <% end %>
+              </th>
+            </tr>
           </table>
-          <%= link_to edit_user_path(user.id), class: "btn btn-outline-secondary btn-block" do %>
-          <i class="fas fa-user-cog"></i>
+
+        <div class='row'>
+          <% unless user == current_user %>
+            <% if current_user.following?(user.id) %>
+            <%= link_to "フォロー外す", relationships_path(user.id),class: "btn btn-sm btn-info", method: :delete %>
+            <% else %>
+            <%= link_to "フォローする", relationships_path(user.id),class: "btn btn-sm btn-success", method: :post %>
+            <% end %>
+          <% else %>
+            <%= link_to edit_user_path(user.id), class: "btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog"></i>
+            <% end %>
           <% end %>
         </div>
