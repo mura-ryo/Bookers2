@@ -2,16 +2,20 @@
   <div class= "container px-5 px-sm-0">
     <div class= "row">
       <div class= "col-md-3">
-        
+
 <!-- ユーザーの詳細 -->
         <%= render 'users/userinfo', user: @user %>
-        
+
 <!-- 新規投稿 -->
         <%= render 'books/post', book: Book.new %>
         </div>
-      
-<!-- ユーザーの投稿一覧 -->
+
       <div class= "col-md-8 offset-md-1">
+<!-- 検索フォーム -->
+        <%= render 'searches/search' %>
+
+<!-- ユーザーの投稿一覧 -->
+
         <h2>Books</h2>
         <table class="table table-hover table-inverse">
           <thead>
@@ -39,7 +43,7 @@
               <td>
              <!-- ファボ機能 -->
         <%= render 'favorites/fav', book: book %>
-             </td> 
+             </td>
              <td>
             <p><%=  "コメント数：#{book.book_comments.count} " %></p>
              </td>

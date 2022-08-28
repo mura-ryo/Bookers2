@@ -9,8 +9,13 @@
 <!-- 新規投稿 -->
         <%= render 'books/post', book: @book %>
       </div>
+
+      <div class= "col-md-8 offset-md-1">      
+<!-- 検索フォーム -->      
+        <%= render 'searches/search' %>
 <!-- ユーザーの一覧 -->
         <%= render 'index',users: @users %>
+     </div>
     </div>
   </div>
 </main>

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  get 'searches/search'
   devise_for :users
   root to: "homes#top"
-  #get "/about", => "homes#about", as: "home/about"
   get "home/about" => "homes#about", as: "about"
-  #get '/about', to: 'homes#about'
+  get "search" => "searches#search"
+  
   resources :books, only: [:new, :index, :create, :show, :edit, :update, :destroy]do
     resources :book_comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
