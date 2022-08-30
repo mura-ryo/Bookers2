@@ -9,13 +9,13 @@
 
 <!-- ユーザーの詳細 -->
         <%= render 'users/userinfo', user: @user %>
-        
+
 <!-- 新規投稿 -->
         <%= render 'post', book: Book.new %>
       </div>
-        
-      <div class= "col-md-8 offset-md-1"></br>      
-<!-- 検索フォーム -->      
+
+      <div class= "col-md-8 offset-md-1"></br>
+<!-- 検索フォーム -->
         <%= render 'searches/search' %>
 
         <h2>Book detail</h2>
@@ -29,12 +29,12 @@
              <td><%= link_to "Edit", edit_book_path(@book), class:"btn btn-sm btn-success" %></td>
              <td><%= link_to "Destroy", book_path(@book), method: :delete, "data-confirm" => "本当に削除しますか？", class:"btn btn-sm btn-danger" %></td>
              <% end %>
-             <td>
              <!-- ファボ機能 -->
-        <%= render 'favorites/fav', book: @book %>
-        　　</td>
-        　　  <td>コメント数: <%= @book.book_comments.count %></td>
-          </tr>
+　　         <td id=favorite_buttons_<%= @book.id %>>
+               <%= render 'favorites/favorite-btn', book: @book %>
+        　    </td>
+        　　   <td>コメント数: <%= @book.book_comments.count %></td>
+            </tr>
           </tbody>
         </table>
           <!-- コメ一覧 -->

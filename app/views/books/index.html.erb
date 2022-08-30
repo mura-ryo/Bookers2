@@ -40,13 +40,13 @@
                 <% end %>
               </td>
               <td><%= book.body %></td>
+                <!-- ファボ機能 -->
+　　          <td class=favorite_buttons_<%= @book.id %>>
+                <%= render 'favorites/favorite-btn', book: book %>
+              </td>
               <td>
-             <!-- ファボ機能 -->
-        <%= render 'favorites/fav', book: book %>
-             </td>
-             <td>
-            <p><%=  "コメント数：#{book.book_comments.count} " %></p>
-             </td>
+                <p><%=  "コメント数：#{book.book_comments.count} " %></p>
+              </td>
               </tr>
               <% end %>
           </tbody>
