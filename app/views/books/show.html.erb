@@ -6,14 +6,11 @@
   <div class= "container">
     <div class= "row">
       <div class= "col-md-3">
-
 <!-- ユーザーの詳細 -->
         <%= render 'users/userinfo', user: @user %>
-
 <!-- 新規投稿 -->
         <%= render 'post', book: Book.new %>
       </div>
-
       <div class= "col-md-8 offset-md-1"></br>
 <!-- 検索フォーム -->
         <%= render 'searches/search' %>
@@ -38,9 +35,14 @@
           </tbody>
         </table>
           <!-- コメ一覧 -->
-        <%= render 'book_comments/comindex', book: @book %>
-          <!-- コメ機能 -->
-        <%= render 'book_comments/com', book: @book %>
+        <div id=comments-area_<%= @book.id %>>
+          <%= render 'book_comments/comindex', book: @book %>
+        </div>
+        <!-- コメ機能 -->
+        <div id=form-area_<%= @book.id %>>
+          <%= render 'book_comments/com', book: @book, book_comment: @book_comment  %>
+        </div>
+         <!---->
       </div>
     </div>
   </div>

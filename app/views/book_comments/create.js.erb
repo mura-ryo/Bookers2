@@ -1,0 +1,4 @@
+<!--id="comments_areaにをrenderで指定した部分テンプレートに更新-->
+$("#comments-area_<%= @book.id %>").html("<%= j(render 'book_comments/comindex', book: @book) %>");
+<!--フォームを送信したあとにフォームの値を空にします-->
+$("#book_comment_comment").val('');
