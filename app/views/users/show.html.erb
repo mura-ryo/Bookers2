@@ -32,7 +32,7 @@
             <%= link_to book_path(book.id) do %>
             <% end %>
             <tr>
-            <td><%= link_to user_path do %><%= image_tag book.user.get_profile_image, size:'50x50' %><% end %></td>
+            <td><%= link_to user_path do %><%= image_tag book.user.get_profile_image, size:'80x80' %><% end %></td>
             <td><%= link_to book_path(book.id) do %><%= book.title %><% end %></td>
             <td><%= book.body %></td>
             <td><p><%=  "コメント数：#{book.book_comments.count} " %></p></td>

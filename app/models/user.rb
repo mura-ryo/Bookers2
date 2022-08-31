@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -9,18 +11,18 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
 
 
-# フォローをした、されたの関係
-has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  # フォローをした、されたの関係
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
 
-# 一覧画面で使う
-has_many :followings, through: :relationships, source: :followed
-has_many :followers, through: :reverse_of_relationships, source: :follower
+  # 一覧画面で使う
+  has_many :followings, through: :relationships, source: :followed
+  has_many :followers, through: :reverse_of_relationships, source: :follower
 
   has_one_attached :profile_image
 
-  validates :name, length: {minimum:2, maximum:20}, uniqueness: true
-  validates :introduction, length: {maximum:50}
+  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+  validates :introduction, length: { maximum: 50 }
 
   # フォローしたときの処理
   def follow(user_id)
@@ -34,23 +36,31 @@ has_many :followers, through: :reverse_of_relationships, source: :follower
   def following?(user)
     followings.include?(user)
   end
-  
+
   # 検索方法分岐
   def self.looks(search, word)
     if search == "perfect_match"
-      @user = User.where("name LIKE?","#{word}")
+      @user = User.where("name LIKE?", "#{word}")
     elsif search == "forward_match"
-      @user = User.where("name LIKE?","#{word}%")
+      @user = User.where("name LIKE?", "#{word}%")
     elsif search == "backward_match"
-      @user = User.where("name LIKE?","%#{word}")
+      @user = User.where("name LIKE?", "%#{word}")
     elsif search == "partial_match"
-      @user = User.where("name LIKE?","%#{word}%")
+      @user = User.where("name LIKE?", "%#{word}%")
     else
       @user = User.all
     end
   end
 
+  # ゲストログイン機能
+  def self.guest
+    find_or_create_by!(name: "guestuser", email: "guest@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
+
   def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+    (profile_image.attached?) ? profile_image : "no_image.jpg"
   end
 end
